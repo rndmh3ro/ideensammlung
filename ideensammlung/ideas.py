@@ -78,6 +78,7 @@ def index():
 
 @app.route("/idea/<idea_id>/", methods=["POST", "GET"])
 def get_idea(idea_id):
+    """Show specific idea and images."""
     db = get_db()
     image_form = AddImage()
     form = AddIdea()
@@ -93,6 +94,8 @@ def get_idea(idea_id):
 
 @app.route("/add_idea", methods=["POST"])
 def add_idea():
+    """Add idea."""
+    #TODO: Add min. and max length for title and description.
     form = AddIdea()
     if not session.get("logged_in"):
         abort(401)
@@ -108,6 +111,8 @@ def add_idea():
 
 @app.route("/delete_idea/<idea_id>", methods=["GET"])
 def delete_idea(idea_id):
+    """Delete idea and all images."""
+    #TODO: Add confirmation dialog for deleting idea.
     db = get_db()
     images = db.execute("select image from images where image_id=?", (idea_id,))
     all_images = images.fetchall()
@@ -129,6 +134,9 @@ def allowed_file(filename):
 
 @app.route("/upload_image", methods=["POST"])
 def upload_image():
+    """ Upload image."""
+    #TODO: Check for filesize
+    #TODO: Add errors if file not in right format or to big.
     image_form = AddImage()
     image = image_form.image.data
     idea_id = request.form["idea_id"]
@@ -145,7 +153,10 @@ def upload_image():
 
 @app.route("/delete_image/<image_id>", methods=["GET", "POST"])
 def delete_image(image_id):
+    """Deletes image of idea."""
     #TODO: make jumping back to idea possible
+    #TODO: add confirmation dialog to delete image.
+
 #    idea_id = [request.form["idea_id"]]
 #    print idea_id
     db = get_db()
@@ -164,6 +175,8 @@ def delete_image(image_id):
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    """login function."""
+    #TODO: Add secure auth.
     error = None
     if request.method == "POST":
         if request.form["username"] != app.config["USERNAME"] or request.form["password"] != app.config["PASSWORD"]:
@@ -176,6 +189,7 @@ def login():
 
 @app.route("/logout")
 def logout():
+    """Logout function"""
     session.pop("logged_in", None)
     flash("Erfolgreich ausgeloggt.")
     return redirect(url_for("index"))
