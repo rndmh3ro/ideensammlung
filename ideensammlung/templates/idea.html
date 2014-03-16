@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block body %}
+<div class="row">
+    <div class="col-md-8">
+        <h4>
+            <a href="{{url_for('get_idea' idea_id=idea_id)}">#{{ ideas.id }} - {{ ideas.title }}</a>
+            <a class="btn btn-default btn-xs btn-danger" href="{{url_for('delete_idea',idea_id=ideas.id)}}" role="button">Idee löschen</a>
+        </h4>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Beschreibung:
+            </div>
+            <div class="panel-body">
+                {{ideas.description|safe}}
+                <form method="post">
+                    <input type="hidden" name="idea_id" value="{{ ideas.id }}">
+                </form>
+            </div>
+        </div>
+            {% for image in images %}
+                <img class="img-responsive thumbnail" src="/uploads/{{image.image}}"> 
+                <a class="btn btn-default btn-xs pull-right btn-warning" href="{{url_for('delete_image', image_id=image.id)}}" role="button">Bild löschen</a>
+                <input type="hidden" name="id" value="{{image.id}}">
+            {% endfor %}
+            {% if session.logged_in %}
+                {% include 'includes/upload.html' %}
+            {% endif %}
+        {% endblock %}
+    </div>
+</div>
