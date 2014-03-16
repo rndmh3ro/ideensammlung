@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>{% block title %}{{ SITENAME }}{% endblock %} </title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="/static/js/bootstrap.min.js"></script>
+    <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+    <script src="/static/js/respond.js"></script>
+     <!-- Bootstrap -->
+    <link rel="stylesheet" href="/static/css/bootstrap.css" type="text/css"/>
+    <link href="/static/css/font-awesome.css" rel="stylesheet">
+    <link href="/static/css/pygments.css" rel="stylesheet">
+    {% if DOCUTIL_CSS %}
+        <link href="/static/css/html4css1.css" rel="stylesheet">
+    {% endif %}
+    {% if TYPOGRIFY %}
+        <link href="/static/css/typogrify.css" rel="stylesheet">
+    {% endif %}
+        <link href="/static/css/style.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="{{ url_for('index') }}" class="navbar-brand">{{ SITENAME }} {% if SITESUBTITLE %} - {{ SITESUBTITLE }}{% endif %}</a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+           <div>
+        {% if not session.logged_in %}
+            <a href="{{ url_for('login') }}">log in</a>
+        {% else %}
+            <a href="{{ url_for('logout') }}">log out</a>
+        {% endif %}
+        {% for message in get_flashed_messages() %}
+            <div class=flash>{{ message }}</div>
+        {% endfor %}   
+        </div>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<!-- /.navbar -->
+<div class="container">
+    {% block body %}{% endblock %}
+</div>
+{% include 'includes/footer.html' %}
+</body>
+</html>
