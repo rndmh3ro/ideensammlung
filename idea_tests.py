@@ -4,19 +4,20 @@ import os
 import unittest
 import tempfile
 
-import ideas
+from ideensammlung import app
+from ideensammlung import db_connect
 
 
 class IdeaTesting(unittest.TestCase):
     def setUp(self):
-        self.db_fd, ideas.app.config["DATABASE"] = tempfile.mkstemp()
-        ideas.app.config["TESTING"] = True
-        self.app = ideas.app.test_client()
-        ideas.init_db()
+        self.db_fd, app.config["DATABASE"] = tempfile.mkstemp()
+        app.config["TESTING"] = True
+        self.app = app.test_client()
+        db_connect.init_db()
 
     def TearDown(self):
         os.close(self.db_fd)
-        os.unlink(ideas.app.config["DATABASE"])
+        os.unlink(app.config["DATABASE"])
 
     def Login(self, username, password):
         return self.app.post("/login", data=dict(
