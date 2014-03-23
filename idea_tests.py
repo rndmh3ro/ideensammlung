@@ -5,7 +5,7 @@ import unittest
 import tempfile
 
 from ideensammlung import app
-from ideensammlung import db_connect
+from ideensammlung import database
 
 
 class IdeaTesting(unittest.TestCase):
@@ -13,7 +13,7 @@ class IdeaTesting(unittest.TestCase):
         self.db_fd, app.config["DATABASE"] = tempfile.mkstemp()
         app.config["TESTING"] = True
         self.app = app.test_client()
-        db_connect.init_db()
+        database.init_db()
 
     def TearDown(self):
         os.close(self.db_fd)

@@ -1,9 +1,10 @@
 #!/usr/bin/python
 #  -*- coding: utf-8 -*-
 
-from ideensammlung import app
+from ideensammlung import app, config
+from ideensammlung import database
 from ideensammlung import forms
-from ideensammlung import db_connect
+from ideensammlung import models
 import os
 
 from flask import request, session, redirect, url_for, abort, render_template, flash
@@ -12,22 +13,17 @@ from werkzeug.utils import secure_filename
 @app.route("/", methods=["GET", "POST"])
 def index():
     form = forms.AddIdea()
-    db = db_connect.get_db()
-    all_ideas = db.execute("select id, title from ideas order by id asc")
-    ideas = all_ideas.fetchall()
+    ideas = models.Ideas.query.all()
     return render_template("index.html", SITENAME="Ideenfundgrube", ideas=ideas, form=form)
 
 
 @app.route("/idea/<idea_id>/", methods=["POST", "GET"])
 def get_idea(idea_id):
     """Show specific idea and images."""
-    db = db_connect.get_db()
     image_form = forms.AddImage()
     form = forms.AddIdea()
-    cur = db.execute("select id, title, description from ideas where id=?", (idea_id,))
-    all_images = db.execute("select id, image from images where image_id=?", (idea_id, ))
-    ideas = cur.fetchone()
-    images = all_images.fetchall()
+    images = models.Images.query.filter_by(image_id=idea_id).all()
+    ideas = models.Ideas.query.filter_by(id=idea_id).first()
     if ideas is None:
         abort(404)
     return render_template("idea.html", SITENAME="Ideenfundgrube", ideas=ideas, idea_id=idea_id,
@@ -42,11 +38,11 @@ def add_idea():
     if not session.get("logged_in"):
         abort(401)
     if form.validate_on_submit():
-        db = db_connect.get_db()
         title = form.title.data
         description = form.description.data
-        db.execute("insert into ideas (title,description) values (?,?)", (title, description))
-        db.commit()
+        idea = models.Ideas(title=title, description=description)
+        database.db_session.add(idea)
+        database.db_session.commit()
         flash("Idee eingetragen!")
     return redirect(url_for("index"))
 
@@ -55,17 +51,16 @@ def add_idea():
 def delete_idea(idea_id):
     """Delete idea and all images."""
     #TODO: Add confirmation dialog for deleting idea.
-    db = db_connect.get_db()
-    images = db.execute("select image from images where image_id=?", (idea_id,))
-    all_images = images.fetchall()
-    for fn in all_images:
+    ideas = models.Ideas.query.filter_by(id=idea_id).one()
+    images = models.Images.query.filter_by(image_id=idea_id).all()
+    models.Ideas.query.filter_by(id=idea_id).delete()
+    for image in images:
         try:
-            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], fn[0]))
+            os.remove(os.path.join(app.config['UPLOAD_FOLDER'], image.image))
         except OSError:
             pass
-    db.execute("delete from images where image_id=?", (idea_id,))
-    db.execute("delete from ideas where id=?", (idea_id,))
-    db.commit()
+    database.db_session.delete(ideas)
+    database.db_session.commit()
     flash(u"Idee gelöscht!")
     return redirect(url_for("index"))
 
@@ -78,12 +73,11 @@ def upload_image():
     image_form = forms.AddImage()
     image = image_form.image.data
     idea_id = request.form["idea_id"]
-    if image and db_connect.allowed_file(image.filename):
-        db = db_connect.get_db()
+    if image and database.allowed_file(image.filename):
         filename = secure_filename(image.filename)
-        db.execute("insert into images (image_id, image) values ((select id from ideas where id=?),?)",
-                   (idea_id, filename))
-        db.commit()
+        db_image = models.Images(image_id=idea_id, image=image.filename)
+        database.db_session.add(db_image)
+        database.db_session.commit()
         image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         flash("Bild hochgeladen!")
     return redirect(url_for("get_idea", idea_id=idea_id))
@@ -94,18 +88,14 @@ def delete_image(image_id):
     """Deletes image of idea."""
     #TODO: make jumping back to idea possible
     #TODO: add confirmation dialog to delete image.
-
-#    idea_id = [request.form["idea_id"]]
-#    print idea_id
-    db = db_connect.get_db()
-    image = os.path.join(app.config['UPLOAD_FOLDER'], db.execute("select image from images where id=?",
-                                                                 (image_id,)).fetchone()[0])
-    db.execute("delete from images where id = ?", (image_id,))
+    image_id = models.Images.query.filter_by(id=image_id).one()
+    image = os.path.join(app.config['UPLOAD_FOLDER'], image_id.image)
+    database.db_session.delete(image_id)
     try:
         os.remove(image)
     except OSError:
         pass
-    db.commit()
+    database.db_session.commit()
     flash(u"Bild gelöscht!")
 #    return redirect(url_for("get_idea", idea_id=idea_id))
     return redirect(url_for("index"))
