@@ -73,14 +73,17 @@ def upload_image():
     #TODO: Add errors if file not in right format or to big.
     image_form = forms.AddImage()
     image = image_form.image.data
+    print image
     idea_id = request.form["idea_id"]
-    if image_form.validate_on_submit() and database.allowed_file(image):
+    if image and database.allowed_file(image.filename):
         filename = secure_filename(image.filename)
         db_image = models.Images(image_id=idea_id, image=image.filename)
         database.db_session.add(db_image)
         database.db_session.commit()
         image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         flash("Bild hochgeladen!")
+    else:
+        flash("Da ist was verkehrt mit dem Bild.")
     return redirect(url_for("get_idea", idea_id=idea_id))
 
 
