@@ -32,8 +32,8 @@ def get_idea(idea_id):
 
 @app.route("/add_idea", methods=["POST"])
 def add_idea():
+    #TODO: Change flash() to flask-templare
     """Add idea."""
-    #TODO: Add min. and max length for title and description.
     form = forms.AddIdea()
     if not session.get("logged_in"):
         abort(401)
@@ -44,8 +44,9 @@ def add_idea():
         database.db_session.add(idea)
         database.db_session.commit()
         flash("Idee eingetragen!")
+    else:
+        flash(form.errors.items())
     return redirect(url_for("index"))
-
 
 @app.route("/delete_idea/<idea_id>", methods=["GET"])
 def delete_idea(idea_id):
@@ -73,7 +74,7 @@ def upload_image():
     image_form = forms.AddImage()
     image = image_form.image.data
     idea_id = request.form["idea_id"]
-    if image and database.allowed_file(image.filename):
+    if image_form.validate_on_submit() and database.allowed_file(image):
         filename = secure_filename(image.filename)
         db_image = models.Images(image_id=idea_id, image=image.filename)
         database.db_session.add(db_image)
