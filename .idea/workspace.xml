@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="64c5ac40-67f2-43e9-897d-06d037cd75e2" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ideensammlung/ideas.db" afterPath="$PROJECT_DIR$/ideensammlung/ideas.db" />
+    <list default="true" id="64c5ac40-67f2-43e9-897d-06d037cd75e2" name="Default" comment="improved tests.">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ideensammlung.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,13 +28,8 @@
       <file leaf-file-name="idea_tests.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ideensammlung/test/idea_tests.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="0" selection-start="1140" selection-end="1140" vertical-scroll-proportion="0.0" vertical-offset="234" max-vertical-offset="1020">
-              <folding>
-                <element signature="e#43#52#0" expanded="true" />
-                <element signature="e#1170#1223#0" expanded="false" />
-                <element signature="e#1261#1322#0" expanded="false" />
-                <element signature="e#1365#1710#0" expanded="false" />
-              </folding>
+            <state line="44" column="0" selection-start="1140" selection-end="1140" vertical-scroll-proportion="0.0" vertical-offset="660" max-vertical-offset="1185">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -42,7 +37,7 @@
       <file leaf-file-name="views.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ideensammlung/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="75" column="0" selection-start="2541" selection-end="2541" vertical-scroll-proportion="0.5049505" vertical-offset="714" max-vertical-offset="1860">
+            <state line="75" column="0" selection-start="2541" selection-end="2541" vertical-scroll-proportion="0.15953948" vertical-offset="923" max-vertical-offset="1860">
               <folding />
             </state>
           </provider>
@@ -51,7 +46,7 @@
       <file leaf-file-name="run.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ideensammlung/run.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="11" selection-start="72" selection-end="72" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="165">
+            <state line="3" column="11" selection-start="72" selection-end="72" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="180">
               <folding />
             </state>
           </provider>
@@ -60,10 +55,8 @@
       <file leaf-file-name="database.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ideensammlung/database.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="26" selection-start="507" selection-end="507" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="465">
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
-              </folding>
+            <state line="16" column="26" selection-start="507" selection-end="507" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="465">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -71,10 +64,8 @@
       <file leaf-file-name="config.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ideensammlung/config.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="14" selection-start="167" selection-end="167" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
-              </folding>
+            <state line="7" column="14" selection-start="167" selection-end="167" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="300">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -162,6 +153,20 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="ideensammlung" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ideensammlung" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ideensammlung" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ideensammlung" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="ideensammlung" />
@@ -518,7 +523,6 @@
     <frame x="-1" y="24" width="1922" height="1060" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32943678" sideWeight="0.49970222" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32943678" sideWeight="0.49970222" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32943678" sideWeight="0.49970222" order="1" side_tool="false" content_ui="tabs" />
@@ -527,11 +531,12 @@
       <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32943678" sideWeight="0.49970222" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32731137" sideWeight="0.32876712" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32661718" sideWeight="0.32876712" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="DB Execution Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32731137" sideWeight="0.6712329" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32676348" sideWeight="0.6712329" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32837406" sideWeight="0.49970222" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -564,11 +569,44 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/setup.py">
+    <entry file="file://$PROJECT_DIR$/ideensammlung/test/idea_tests.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
+        <state line="44" column="0" selection-start="1140" selection-end="1140" vertical-scroll-proportion="0.0" vertical-offset="660" max-vertical-offset="1185">
           <folding />
         </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ideensammlung/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="0" selection-start="2541" selection-end="2541" vertical-scroll-proportion="0.0" vertical-offset="1125" max-vertical-offset="1860">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ideensammlung/run.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="11" selection-start="72" selection-end="72" vertical-scroll-proportion="0.0" vertical-offset="45" max-vertical-offset="180">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ideensammlung/database.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="26" selection-start="507" selection-end="507" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="465">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ideensammlung/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="14" selection-start="167" selection-end="167" vertical-scroll-proportion="0.0" vertical-offset="105" max-vertical-offset="300">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setup.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270" />
       </provider>
     </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
@@ -578,49 +616,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ideensammlung/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="413" selection-end="413" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
-          <folding>
-            <element signature="e#0#58#0" expanded="false" />
-          </folding>
-        </state>
+        <state line="12" column="0" selection-start="413" selection-end="413" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/setup.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="0" selection-start="354" selection-end="354" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270">
-          <folding />
-        </state>
+        <state line="12" column="0" selection-start="354" selection-end="354" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="270" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="606">
-          <folding />
-        </state>
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="606" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ideensammlung/config.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="14" selection-start="167" selection-end="167" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="300">
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/../venv_ideensammlung/lib/python2.7/site-packages/sqlalchemy/orm/query.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2360" column="0" selection-start="89046" selection-end="89046" vertical-scroll-proportion="0.33333334" vertical-offset="34913" max-vertical-offset="53085">
-          <folding />
-        </state>
+        <state line="2360" column="0" selection-start="89046" selection-end="89046" vertical-scroll-proportion="0.33333334" vertical-offset="34913" max-vertical-offset="53085" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ideensammlung/database.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="16" column="26" selection-start="507" selection-end="507" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="465">
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -634,18 +658,13 @@
     <entry file="file://$PROJECT_DIR$/ideensammlung/test/idea_tests.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="44" column="0" selection-start="1140" selection-end="1140" vertical-scroll-proportion="0.0" vertical-offset="234" max-vertical-offset="1020">
-          <folding>
-            <element signature="e#43#52#0" expanded="true" />
-            <element signature="e#1170#1223#0" expanded="false" />
-            <element signature="e#1261#1322#0" expanded="false" />
-            <element signature="e#1365#1710#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ideensammlung/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="75" column="0" selection-start="2541" selection-end="2541" vertical-scroll-proportion="0.5049505" vertical-offset="714" max-vertical-offset="1860">
+        <state line="75" column="0" selection-start="2541" selection-end="2541" vertical-scroll-proportion="0.15953948" vertical-offset="923" max-vertical-offset="1860">
           <folding />
         </state>
       </provider>
