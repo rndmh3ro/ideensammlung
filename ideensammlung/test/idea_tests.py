@@ -2,22 +2,27 @@
 #  -*- coding: utf-8 -*-
 import os
 import unittest
-import tempfile
 
 from ideensammlung import app
 from ideensammlung import database
 
+from tempfile import mkstemp
+
 
 class IdeaTesting(unittest.TestCase):
     def setUp(self):
-        self.db_fd, app.config["DATABASE"] = tempfile.mkstemp()
+        try:
+            os.remove(app.config['DATABASE'])
+        except OSError:
+            pass
         app.config["TESTING"] = True
+        app.config['WTF_CSRF_ENABLED'] = False
         self.app = app.test_client()
+        self.db_fd, app.config['DATABASE'] = mkstemp()
         database.init_db()
 
-    def TearDown(self):
-        os.close(self.db_fd)
-        os.unlink(app.config["DATABASE"])
+    def tearDown(self):
+        database.drop_db()
 
     def Login(self, username, password):
         return self.app.post("/login", data=dict(
@@ -26,16 +31,15 @@ class IdeaTesting(unittest.TestCase):
         ), follow_redirects=True
         )
 
-    def add_idea(self, idea_id, title, description):
+    def add_idea(self, title, description):
         return self.app.post("/add_idea", data=dict(
-            idea_id=id,
             title=title,
             description=description
         ), follow_redirects=True)
 
     def delete_idea(self, idea_id):
-        return self.app.post("/delete_idea", data=dict(
-            id=id
+        return self.app.post("/delete_idea/"+str(idea_id), data=dict(
+            idea_id=idea_id
         ), follow_redirects=True)
 
     def logout(self):
@@ -55,18 +59,15 @@ class IdeaTesting(unittest.TestCase):
         rv = self.Login("admin", "defaultx")
         assert "Nutzername oder Passwort falsch!"
 
-    def test_idea_adding(self):
+    def test_idea_adding_and_deleting(self):
         self.Login("admin", "default")
-        rv = self.add_idea("1", "testtitel", "testdescription")
-        assert "Nichts da." not in rv.data
-        assert "testtitel" in rv.data
+        rv1 = self.add_idea("testtitel", "testdescription")
+        assert "Nichts da." not in rv1.data
+        assert "testtitel" in rv1.data
+        self.delete_idea(1)
+        rv2 = self.app.get("/")
+        assert "Nichts da." in rv2.data
 
-    def test_idea_delete(self):
-        self.Login("admin", "default")
-        self.add_idea("1", "testtitel", "testdescription")
-        rv = self.delete_idea("1")
-        print rv.data
-        assert "Nichts da." in rv.data
 
 if __name__ == "__main__":
     unittest.main
