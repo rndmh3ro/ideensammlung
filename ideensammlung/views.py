@@ -48,7 +48,7 @@ def add_idea():
         flash(form.errors.items())
     return redirect(url_for("index"))
 
-@app.route("/delete_idea/<idea_id>", methods=["GET"])
+@app.route("/delete_idea/<idea_id>", methods=["GET", "POST"])
 def delete_idea(idea_id):
     """Delete idea and all images."""
     #TODO: Add confirmation dialog for deleting idea.
@@ -73,7 +73,6 @@ def upload_image():
     #TODO: Add errors if file not in right format or to big.
     image_form = forms.AddImage()
     image = image_form.image.data
-    print image
     idea_id = request.form["idea_id"]
     if image and database.allowed_file(image.filename):
         filename = secure_filename(image.filename)

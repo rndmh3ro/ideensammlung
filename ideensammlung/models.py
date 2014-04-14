@@ -8,9 +8,9 @@ class Ideas(Base):
     title = Column(String(50), nullable=False)
     description = Column(String(5000), nullable=False)
 
-    def __init__(self, title=None, description=None):
-        self.title = title
-        self.description = description
+#    def __init__(self, title=None, description=None):
+#        self.title = title
+#        self.description = description
 
 
 class Images(Base):

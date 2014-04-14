@@ -1,14 +1,11 @@
-import sqlite3
 from ideensammlung import app
-from flask import g
-import os
+from os import remove
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
-database = os.path.join(app.root_path, "ideas.db")
-#database = os.path.join(app.config["DATABASE"])
+database = app.config["DATABASE"]
 engine = create_engine('sqlite:////'+database, convert_unicode=True)
 db_session = scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
 
@@ -17,39 +14,12 @@ Base.query = db_session.query_property()
 
 
 def init_db():
-    import models
     Base.metadata.create_all(bind=engine)
 
 
-
-#def connect_db():
-#    rv = sqlite3.connect(app.config["DATABASE"])
-#    rv.row_factory = sqlite3.Row
-#    return rv
-
-
-#def init_db():
-#    with app.app_context():
-#        db = get_db()
-#        with app.open_resource("schema.sql", mode="r") as f:
-#            db.cursor().executescript(f.read())
-#        db.commit()
-
-
-#def get_db():
-#    """Opens a new database connection if there is none yet for the
-#    current application context.
-#    """
-#    if not hasattr(g, 'sqlite_db'):
-#        g.sqlite_db = connect_db()
-#    return g.sqlite_db
+def drop_db():
+    Base.metadata.drop_all(bind=engine)
 
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1] in app.config["ALLOWED_EXTENSIONS"]
-
-#@app.teardown_appcontext
-#def close_db(error):
-#    """Closes the database again at the end of the request."""
-#    if hasattr(g, 'sqlite_db'):
-#        g.sqlite_db.close()
