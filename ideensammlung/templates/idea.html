@@ -3,7 +3,10 @@
     <div class="col-md-8">
         <h4>
             <a href="{{url_for('get_idea', idea_id=idea_id)}}">#{{ ideas.id }} - {{ ideas.title }}</a>
-            <a class="btn btn-default btn-xs btn-danger" href="{{url_for('delete_idea',idea_id=ideas.id)}}" role="button">Idee löschen</a>
+            {% if session.logged_in %}
+                <a class="btn btn-default btn-xs btn-danger" href="{{url_for('delete_idea',idea_id=ideas.id)}}" role="button">Idee löschen</a>
+            {% endif %}
+
         </h4>
         <div class="panel panel-default">
             <div class="panel-heading">

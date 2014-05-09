@@ -45,6 +45,8 @@ class IdeaTesting(unittest.TestCase):
     def logout(self):
         return self.app.get("/logout", follow_redirects=True)
 
+# The following are tests
+
     def test_emptydb(self):
         rv = self.app.get("/")
         assert "Nichts da." in rv.data
@@ -54,12 +56,14 @@ class IdeaTesting(unittest.TestCase):
         assert "Erfolgreich eingeloggt." in rv.data
         rv = self.logout()
         assert "Erfolgreich ausgeloggt."
+
+    def test_wrong_login(self):
         rv = self.Login("adminx", "default")
         assert "Nutzername oder Passwort falsch!"
         rv = self.Login("admin", "defaultx")
         assert "Nutzername oder Passwort falsch!"
 
-    def test_idea_adding_and_deleting(self):
+    def test_idea_adding_and_deleting_when_logged_in(self):
         self.Login("admin", "default")
         rv1 = self.add_idea("testtitel", "testdescription")
         assert "Nichts da." not in rv1.data
@@ -68,6 +72,21 @@ class IdeaTesting(unittest.TestCase):
         rv2 = self.app.get("/")
         assert "Nichts da." in rv2.data
 
+    def test_idea_adding_when_logged_out(self):
+        rv1 = self.add_idea("testtitel", "testdescription")
+        assert "Unauthorized" in rv1.data
+        assert "testtitel" not in rv1.data
+        rv2 = self.app.get("/")
+        assert "Nichts da." in rv2.data
+
+    def test_idea_deleting_when_logged_out(self):
+        self.Login("admin", "default")
+        self.add_idea("testtitel", "testdescription")
+        self.logout()
+        rv1 = self.delete_idea(1)
+        assert "Unauthorized" in rv1.data
+
+    #TODO: write tests for uploading and deleting images
 
 if __name__ == "__main__":
     unittest.main

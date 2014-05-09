@@ -51,6 +51,8 @@ def add_idea():
 @app.route("/delete_idea/<idea_id>", methods=["GET", "POST"])
 def delete_idea(idea_id):
     """Delete idea and all images."""
+    if not session.get("logged_in"):
+        abort(401)
     #TODO: Add confirmation dialog for deleting idea.
     ideas = models.Ideas.query.filter_by(id=idea_id).one()
     images = models.Images.query.filter_by(image_id=idea_id).all()
@@ -69,6 +71,8 @@ def delete_idea(idea_id):
 @app.route("/upload_image", methods=["POST"])
 def upload_image():
     """ Upload image."""
+    if not session.get("logged_in"):
+        abort(401)
     #TODO: Check for filesize
     #TODO: Add errors if file not in right format or to big.
     image_form = forms.AddImage()
@@ -89,6 +93,8 @@ def upload_image():
 @app.route("/delete_image/<image_id>", methods=["GET", "POST"])
 def delete_image(image_id):
     """Deletes image of idea."""
+    if not session.get("logged_in"):
+        abort(401)
     #TODO: make jumping back to idea possible
     #TODO: add confirmation dialog to delete image.
     image_id = models.Images.query.filter_by(id=image_id).one()
