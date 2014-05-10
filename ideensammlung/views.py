@@ -81,7 +81,7 @@ def upload_image():
     idea_id = request.form["idea_id"]
     if image and database.allowed_file(image.filename):
         filename = secure_filename(image.filename)
-        db_image = models.Images(image_id=idea_id, image=image.filename)
+        db_image = models.Images(image_id=idea_id, image=filename)
         database.db_session.add(db_image)
         database.db_session.commit()
         image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
