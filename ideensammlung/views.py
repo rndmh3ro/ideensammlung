@@ -5,6 +5,7 @@ from ideensammlung import app, config
 from ideensammlung import database
 from ideensammlung import forms
 from ideensammlung import models
+from werkzeug.utils import secure_filename
 import os
 
 from flask import request, session, redirect, url_for, abort, render_template, flash
