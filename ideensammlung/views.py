@@ -80,11 +80,11 @@ def upload_image():
     image = image_form.image.data
     idea_id = request.form["idea_id"]
     if image and database.allowed_file(image.filename):
-        filename = secure_filename(image.filename)
-        db_image = models.Images(image_id=idea_id, image=filename)
+        sec_filename = secure_filename(image.filename) #TODO: repair secure filename
+        db_image = models.Images(image_id=idea_id, image=sec_filename)
         database.db_session.add(db_image)
+        image.save(os.path.join(app.config['UPLOAD_FOLDER'], sec_filename))
         database.db_session.commit()
-        image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         flash("Bild hochgeladen!")
     else:
         flash("Da ist was verkehrt mit dem Bild.")
