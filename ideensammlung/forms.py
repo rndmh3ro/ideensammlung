@@ -1,7 +1,6 @@
 from flask_wtf import Form
 from wtforms import TextField, TextAreaField, FileField
 from wtforms.validators import DataRequired, Length
-from ideensammlung import database
 
 
 class AddIdea(Form):
@@ -14,3 +13,9 @@ class AddIdea(Form):
 
 class AddImage(Form):
     image = FileField("image")
+
+
+class AddComment(Form):
+    comment = TextAreaField("comment", [DataRequired(message="Kommentar darf nicht leer sein"),
+                                                Length(min=1, max=5000,
+                                                       message="Kommentar darf maximal 5000 Zeichen lang sein.")])

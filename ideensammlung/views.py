@@ -7,9 +7,9 @@ from ideensammlung import forms
 from ideensammlung import models
 from werkzeug.utils import secure_filename
 import os
+import datetime
 
 from flask import request, session, redirect, url_for, abort, render_template, flash
-from werkzeug.utils import secure_filename
 
 @app.route("/", methods=["GET", "POST"])
 def index():
@@ -23,12 +23,14 @@ def get_idea(idea_id):
     """Show specific idea and images."""
     image_form = forms.AddImage()
     form = forms.AddIdea()
+    comment_form = forms.AddComment()
     images = models.Images.query.filter_by(image_id=idea_id).all()
     ideas = models.Ideas.query.filter_by(id=idea_id).first()
+    comments = models.Comments.query.filter_by(image_id=idea_id).all()
     if ideas is None:
         abort(404)
     return render_template("idea.html", SITENAME="Ideenfundgrube", ideas=ideas, idea_id=idea_id,
-                           images=images, image_form=image_form, form=form)
+                           images=images, image_form=image_form, form=form, comment_form=comment_form, comments=comments)
 
 
 @app.route("/add_idea", methods=["POST"])
@@ -68,6 +70,23 @@ def delete_idea(idea_id):
     flash(u"Idee gelöscht!")
     return redirect(url_for("index"))
 
+@app.route("/add_comment", methods=["POST"])
+def add_comment():
+    #TODO: Change flash() to flask-templare
+    """Add comment for existing idea."""
+    if not session.get("logged_in"):
+        abort(401)
+    comment_form = forms.AddComment()
+    comment = comment_form.comment.data
+    idea_id = request.form["idea_id"]
+    if comment_form.validate_on_submit():
+        comment_data = models.Comments(image_id=idea_id, comment=comment)
+        database.db_session.add(comment_data)
+        database.db_session.commit()
+        flash("Kommentar eingetragen!")
+    else:
+        flash(comment_form.errors.items())
+    return redirect(url_for("get_idea", idea_id=idea_id))
 
 @app.route("/upload_image", methods=["POST"])
 def upload_image():

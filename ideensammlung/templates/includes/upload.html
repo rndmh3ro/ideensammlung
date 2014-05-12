@@ -4,7 +4,6 @@
         <form class="navbar-form" action="{{url_for('upload_image')}}" method="post" enctype="multipart/form-data">
           <div class="form-group">
           <input type="hidden" name="idea_id" value="{{idea_id}}">
-<!--           <input type="file" name="image"> -->
           {{ image_form.image}}
           <input type="submit" value="Hochladen">
           </div>
