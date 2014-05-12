@@ -48,3 +48,7 @@ _build
 
 #pelican output
 output
+
+# app specifiv
+ideensammlung/ideas.db
+ideensammlung/uploads/
