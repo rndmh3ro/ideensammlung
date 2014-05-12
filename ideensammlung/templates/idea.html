@@ -20,17 +20,16 @@
             {% for comment in comments %}
                 <p>{{comment.comment}}</p>
             {% endfor %}
-            </div>
+        {% if session.logged_in %}
+                {% include 'includes/comments.html' %}
+            {% endif %}            </div>
         </div>
-<!--           <div class="col-md-12 col-sm-1">
- -->            {% for image in images %}
+            {% for image in images %}
                 <img class="img-responsive thumbnail" src="/uploads/{{image.image}}"> 
                 <a class="btn btn-default btn-xs pull-right btn-warning" href="{{url_for('delete_image', image_id=image.id)}}" role="button">Bild löschen</a>
                 <input type="hidden" name="id" value="{{image.id}}">
             {% endfor %}
-        {% include 'includes/comments.html' %}
-<!--             </div>
- -->        {% if session.logged_in %}
+        {% if session.logged_in %}
                 {% include 'includes/upload.html' %}
             {% endif %}
         {% endblock %}
