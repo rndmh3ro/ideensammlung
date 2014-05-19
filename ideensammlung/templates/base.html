@@ -33,7 +33,6 @@
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                <div>
                     {% if not session.logged_in %}
                         <button class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#LogInModal">
                             Einloggen
@@ -44,11 +43,12 @@
                     {% for message in get_flashed_messages() %}
                         <div class=flash>{{ message }}</div>
                     {% endfor %}   
-                </div>
             </ul>
         </div>
     </div>
 </nav>
+</div>
+</header>
 <div class="modal fade" id="LogInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -70,8 +70,6 @@
     </div>
   </div>
 </div>
-</div>
-</header>
 <div class="container">
     {% block body %}{% endblock %}
 </div>
