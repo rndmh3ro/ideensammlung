@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/static/js/bootstrap.min.js"></script>
     <!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
@@ -30,22 +31,43 @@
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-           <div>
-        {% if not session.logged_in %}
-            <a href="{{ url_for('login') }}">log in</a>
-        {% else %}
-            <a href="{{ url_for('logout') }}">log out</a>
-        {% endif %}
-        {% for message in get_flashed_messages() %}
-            <div class=flash>{{ message }}</div>
-        {% endfor %}   
-        </div>
+                <div>
+                    {% if not session.logged_in %}
+                        <button class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#LogInModal">
+                            Einloggen
+                        </button>
+                    {% else %}
+                         <a href="{{ url_for('logout') }}">log out</a>
+                    {% endif %}
+                    {% for message in get_flashed_messages() %}
+                        <div class=flash>{{ message }}</div>
+                    {% endfor %}   
+                </div>
             </ul>
-
         </div>
     </div>
 </nav>
-<!-- /.navbar -->
+                    <div class="modal fade" id="LogInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                            {% if error %}<p class=error><strong>Error:</strong> {{error}}{% endif %}
+                            <form class="form-group" action="{{url_for('login')}}" method=post>
+                                <dl>
+                                    <dt><label for="username">Benutzername</label>
+                                        <dd><input class="form-control" type=text name=username>
+                                    <dt><label for="password">Passwort</label>
+                                        <dd><input class="form-control" type=password name=password>
+                                        <dd><input class="btn btn-default" type=submit value=Login>
+                                </dl>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 <div class="container">
     {% block body %}{% endblock %}
 </div>

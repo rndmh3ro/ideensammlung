@@ -1,5 +1,7 @@
+#  -*- coding: utf-8 -*-
+
 from flask_wtf import Form
-from wtforms import TextField, TextAreaField, FileField
+from wtforms import TextField, TextAreaField, FileField, SubmitField
 from wtforms.validators import DataRequired, Length
 
 
@@ -19,3 +21,4 @@ class AddComment(Form):
     comment = TextAreaField("comment", [DataRequired(message="Kommentar darf nicht leer sein"),
                                                 Length(min=1, max=5000,
                                                        message="Kommentar darf maximal 5000 Zeichen lang sein.")])
+
