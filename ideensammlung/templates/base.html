@@ -24,7 +24,9 @@
         <link href="/static/css/style.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<header id="top" role="banner" class="navbar navbar-static-top bs-docs-nav">
+<div class="container">
+<nav class="navbar navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <a href="{{ url_for('index') }}" class="navbar-brand">{{ SITENAME }} {% if SITESUBTITLE %} - {{ SITESUBTITLE }}{% endif %}</a>
@@ -47,27 +49,29 @@
         </div>
     </div>
 </nav>
-                    <div class="modal fade" id="LogInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                      <div class="modal-dialog">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                          </div>
-                          <div class="modal-body">
-                            {% if error %}<p class=error><strong>Error:</strong> {{error}}{% endif %}
-                            <form class="form-group" action="{{url_for('login')}}" method=post>
-                                <dl>
-                                    <dt><label for="username">Benutzername</label>
-                                        <dd><input class="form-control" type=text name=username>
-                                    <dt><label for="password">Passwort</label>
-                                        <dd><input class="form-control" type=password name=password>
-                                        <dd><input class="btn btn-default" type=submit value=Login>
-                                </dl>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+<div class="modal fade" id="LogInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        {% if error %}<p class=error><strong>Error:</strong> {{error}}{% endif %}
+        <form class="form-group" action="{{url_for('login')}}" method=post>
+            <dl>
+                <dt><label for="username">Benutzername</label>
+                    <dd><input class="form-control" type=text name=username>
+                <dt><label for="password">Passwort</label>
+                    <dd><input class="form-control" type=password name=password>
+                    <dd><input class="btn btn-default" type=submit value=Login>
+            </dl>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</header>
 <div class="container">
     {% block body %}{% endblock %}
 </div>
