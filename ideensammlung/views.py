@@ -7,7 +7,7 @@ from ideensammlung import forms
 from ideensammlung import models
 from werkzeug.utils import secure_filename
 import os
-import datetime
+
 
 from flask import request, session, redirect, url_for, abort, render_template, flash
 
@@ -56,9 +56,10 @@ def delete_idea(idea_id):
     """Delete idea and all images."""
     if not session.get("logged_in"):
         abort(401)
-    #TODO: Add confirmation dialog for deleting idea.
     ideas = models.Ideas.query.filter_by(id=idea_id).one()
     images = models.Images.query.filter_by(image_id=idea_id).all()
+    models.Comments.query.filter_by(image_id=idea_id).delete()
+    models.Images.query.filter_by(image_id=idea_id).delete()
     models.Ideas.query.filter_by(id=idea_id).delete()
     for image in images:
         try:
@@ -99,7 +100,8 @@ def upload_image():
     image = image_form.image.data
     idea_id = request.form["idea_id"]
     if image and database.allowed_file(image.filename):
-        sec_filename = secure_filename(image.filename) #TODO: repair secure filename
+        sec_filename = secure_filename(image.filename)
+        #TODO: repair secure filename
         db_image = models.Images(image_id=idea_id, image=sec_filename)
         database.db_session.add(db_image)
         image.save(os.path.join(app.config['UPLOAD_FOLDER'], sec_filename))
@@ -116,7 +118,6 @@ def delete_image(image_id):
     if not session.get("logged_in"):
         abort(401)
     #TODO: make jumping back to idea possible
-    #TODO: add confirmation dialog to delete image.
     image_id = models.Images.query.filter_by(id=image_id).one()
     image = os.path.join(app.config['UPLOAD_FOLDER'], image_id.image)
     database.db_session.delete(image_id)

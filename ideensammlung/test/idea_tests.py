@@ -87,6 +87,7 @@ class IdeaTesting(unittest.TestCase):
         assert "Unauthorized" in rv1.data
 
     #TODO: write tests for uploading and deleting images
+    #TODO: write test that checks if ideas really get deleted from DB
 
 if __name__ == "__main__":
     unittest.main
