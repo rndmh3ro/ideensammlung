@@ -1,5 +1,7 @@
 #!/usr/bin/python
 #  -*- coding: utf-8 -*-
+from future.builtins import str
+
 import os
 import unittest
 
@@ -7,6 +9,8 @@ from ideensammlung import app
 from ideensammlung import database
 
 from tempfile import mkstemp
+import sys
+import subprocess
 
 
 class IdeaTesting(unittest.TestCase):
@@ -49,45 +53,46 @@ class IdeaTesting(unittest.TestCase):
 
     def test_emptydb(self):
         rv = self.app.get("/")
-        assert "Nichts da." in rv.data
+        assert b"Nichts da." in rv.data
 
     def test_login_logout(self):
         rv = self.Login("admin", "default")
-        assert "Erfolgreich eingeloggt." in rv.data
+        assert b"Erfolgreich eingeloggt." in rv.data
         rv = self.logout()
         assert "Erfolgreich ausgeloggt."
 
     def test_wrong_login(self):
         rv = self.Login("adminx", "default")
-        assert "Nutzername oder Passwort falsch!"
+        assert b"Nutzername oder Passwort falsch!"
         rv = self.Login("admin", "defaultx")
-        assert "Nutzername oder Passwort falsch!"
+        assert b"Nutzername oder Passwort falsch!"
 
     def test_idea_adding_and_deleting_when_logged_in(self):
         self.Login("admin", "default")
         rv1 = self.add_idea("testtitel", "testdescription")
-        assert "Nichts da." not in rv1.data
-        assert "testtitel" in rv1.data
+        assert b"Nichts da." not in rv1.data
+        assert b"testtitel" in rv1.data
         self.delete_idea(1)
         rv2 = self.app.get("/")
-        assert "Nichts da." in rv2.data
+        assert b"Nichts da." in rv2.data
 
     def test_idea_adding_when_logged_out(self):
         rv1 = self.add_idea("testtitel", "testdescription")
-        assert "Unauthorized" in rv1.data
-        assert "testtitel" not in rv1.data
+        assert b"Unauthorized" in rv1.data
+        assert b"testtitel" not in rv1.data
         rv2 = self.app.get("/")
-        assert "Nichts da." in rv2.data
+        assert b"Nichts da." in rv2.data
 
     def test_idea_deleting_when_logged_out(self):
         self.Login("admin", "default")
         self.add_idea("testtitel", "testdescription")
         self.logout()
         rv1 = self.delete_idea(1)
-        assert "Unauthorized" in rv1.data
+        assert b"Unauthorized" in rv1.data
 
     #TODO: write tests for uploading and deleting images
     #TODO: write test that checks if ideas really get deleted from DB
 
 if __name__ == "__main__":
     unittest.main
+
