@@ -7,10 +7,9 @@ import unittest
 
 from ideensammlung import app
 from ideensammlung import database
+from ideensammlung import models
 
 from tempfile import mkstemp
-import sys
-import subprocess
 
 
 class IdeaTesting(unittest.TestCase):
@@ -75,6 +74,9 @@ class IdeaTesting(unittest.TestCase):
         self.delete_idea(1)
         rv2 = self.app.get("/")
         assert b"Nichts da." in rv2.data
+        ideas = models.Ideas.query.filter_by(title="testtitel").all()
+        assert not ideas
+
 
     def test_idea_adding_when_logged_out(self):
         rv1 = self.add_idea("testtitel", "testdescription")
@@ -90,8 +92,7 @@ class IdeaTesting(unittest.TestCase):
         rv1 = self.delete_idea(1)
         assert b"Unauthorized" in rv1.data
 
-    #TODO: write tests for uploading and deleting images
-    #TODO: write test that checks if ideas really get deleted from DB
+    #TODO: write tests for uploading and deleting images, comments
 
 if __name__ == "__main__":
     unittest.main

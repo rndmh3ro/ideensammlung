@@ -127,7 +127,6 @@ def delete_image(image_id):
         pass
     database.db_session.commit()
     flash(u"Bild gelöscht!")
-#    return redirect(url_for("get_idea", idea_id=idea_id))
     return redirect(url_for("index"))
 
 
