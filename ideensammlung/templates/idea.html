@@ -31,7 +31,7 @@
                 Beschreibung
             </div>
             <div class="panel-body">
-                {{ideas.description|safe}}
+                {{ideas.description|safe|urlize}}
                 <form method="post">
                     <input type="hidden" name="idea_id" value="{{ ideas.id }}">
                 </form>

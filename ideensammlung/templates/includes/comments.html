@@ -4,7 +4,7 @@
         <form role="form" class="navbar-form" action="{{url_for('add_comment')}}" method="post">
         	<div class="form-group">
 				{{ comment_form.hidden_tag() }}
-		        {{ comment_form.comment }}
+		        {{comment_form.comment}}
               <input type="hidden" name="idea_id" value="{{idea_id}}">
           <input type="submit" value="Hinzufügen" class="btn btn-default">
           </div>

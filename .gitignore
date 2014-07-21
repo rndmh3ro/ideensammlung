@@ -44,7 +44,8 @@ _build
 *.pid
 
 #pycharm
-.*
+.idea
+
 #pelican output
 output
 
