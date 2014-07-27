@@ -6,6 +6,7 @@ from ideensammlung import database
 from ideensammlung import forms
 from ideensammlung import models
 from werkzeug.utils import secure_filename
+from werkzeug.exceptions import RequestEntityTooLarge
 import os
 
 
@@ -94,8 +95,6 @@ def upload_image():
     """ Upload image."""
     if not session.get("logged_in"):
         abort(401)
-    #TODO: Check for filesize
-    #TODO: Add errors if file not in right format or to big.
     image_form = forms.AddImage()
     image = image_form.image.data
     idea_id = request.form["idea_id"]

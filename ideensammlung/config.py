@@ -11,5 +11,6 @@ app.config.update(dict(
     PASSWORD="default",
     ALLOWED_EXTENSIONS=['png', 'jpg', 'jpeg', 'gif', 'tif', 'tiff'],
     UPLOAD_FOLDER=os.path.join(app.root_path, "uploads"),
+    MAX_CONTENT_LENGTH=1 * 1024 * 1024
 ))
 app.config.from_envvar('IDEAS_SETTINGS', silent=True)
