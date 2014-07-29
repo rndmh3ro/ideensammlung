@@ -56,26 +56,22 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2">
-          <form class="navbar-form" action="{{url_for('status_update')}}" method="post" > 
-            <table class="table table-condensed">
-              {% for field in choice_form %}   
-                <tr>{{ field(class="form-control") }}</tr>
-              {% endfor %}
-            </table>
-              <input type="hidden" name="idea_id" value="{{idea_id}}">
-              <input type="submit" class="btn"  value="Status ändern"/>
-          </form>
-    </div>
 </div>
 
+{% if session.logged_in %}
 <div class="row">
-    <div class="col-md-offset-1 col-md-8">
-        {% if session.logged_in %}
-          {% include 'includes/comments.html' %}
-        {% endif %}
+    <div class="col-md-offset-1 col-md-3">
+      {% include 'includes/status.html' %}
+    </div>
+    <div class="col-md-3">
+      {% include 'includes/comments.html' %}
+    </div>    
+    <div class="col-md-3">
+      {% include 'includes/upload.html' %}
     </div>
 </div>
+{% endif %}
+
 <div class="row">
 {% for image in images %}
     <div class="col-md-offset-1 col-md-4">
@@ -106,13 +102,6 @@
 
     {% endif %}
 {% endfor %}
-</div>
-<div class="row">
-    <div class="col-md-offset-1 col-md-8">
-{% if session.logged_in %}
-{% include 'includes/upload.html' %}
-{% endif %}
-    </div>
 </div>
 {% endblock %}
 </div>

@@ -1,6 +1,4 @@
-<div class="row">
-  <div class="col-md-8">
-   	<label for="image">Kommentar hinzufügen</label>
+   	<label for="image">Kommentar?</label>
       <form role="form" class="navbar-form" action="{{url_for('add_comment')}}" method="post">
       	<div class="form-group">
 	  			{{ comment_form.hidden_tag() }}
@@ -9,5 +7,3 @@
         <input type="submit" value="Hinzufügen" class="btn btn-default">
         </div>
       </form>
-  </div>
-</div>
