@@ -9,9 +9,9 @@
         <div class="clearfix">
           <h4>
             <a href="{{url_for('get_idea', idea_id=idea.id)}}">
-              {% if idea.status == "N" %}
+              {% if idea.status == "new" %}
                 <img class="pull-left img-responsive" src="/static/images/new.png">
-              {% elif idea.status == "P" %}
+              {% elif idea.status == "progress" %}
                 <img class="pull-left img-responsive" src="/static/images/in_progress.png">
               {% else %}
                 <img class="pull-left img-responsive" src="/static/images/done.png">

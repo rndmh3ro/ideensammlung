@@ -216,3 +216,6 @@ h6,
 	font-size: 1rem; /* 18 = 18 × 1 */
 	margin-bottom: 1.65em; /* measure( base font-size(18) * base line-height(1.65) ) / current font-size(18) = margin-bottom(1.65) */
 }
+
+
+.top-buffer { margin-top:20px; }

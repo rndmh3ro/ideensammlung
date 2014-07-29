@@ -25,29 +25,27 @@
 </head>
 <body>
 <header id="top" role="banner" class="navbar navbar-static-top bs-docs-nav">
-<div class="container">
-<nav class="navbar navbar-default" role="navigation">
     <div class="container">
-        <div class="navbar-header">
-            <a href="{{ url_for('index') }}" class="navbar-brand">{{ SITENAME }} {% if SITESUBTITLE %} - {{ SITESUBTITLE }}{% endif %}</a>
-        </div>
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-                    {% if not session.logged_in %}
-                        <button class="btn btn-default btn-xs pull-right" data-toggle="modal" data-target="#LogInModal">
-                            Einloggen
-                        </button>
-                    {% else %}
-                         <a href="{{ url_for('logout') }}">log out</a>
-                    {% endif %}
-                    {% for message in get_flashed_messages() %}
-                        <div class=flash>{{ message }}</div>
-                    {% endfor %}   
-            </ul>
-        </div>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="{{ url_for('index') }}" class="navbar-brand">{{ SITENAME }} {% if SITESUBTITLE %} - {{ SITESUBTITLE }}{% endif %}</a>
+                </div>
+                    <ul class="nav navbar-nav pull-right">
+                        {% if not session.logged_in %}
+                            <button class="btn btn-default btn-xs" data-toggle="modal" data-target="#LogInModal">
+                                Einloggen
+                            </button>
+                        {% else %}
+                             <a href="{{ url_for('logout') }}">log out</a>
+                        {% endif %}
+                        {% for message in get_flashed_messages() %}
+                            <div class=flash>{{ message }}</div>
+                        {% endfor %}   
+                    </ul>
+            </div>
+        </nav>
     </div>
-</nav>
-</div>
 </header>
 <div class="modal fade" id="LogInModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
