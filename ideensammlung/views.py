@@ -84,14 +84,8 @@ def status_update():
     status_choice = forms.StatusChoice()
     if status_choice.validate_on_submit():
         choice = status_choice.state.data
-        print(choice)
         idea = models.Ideas.query.filter_by(id=idea_id).one()
         idea.status = choice
-        print(idea.status)
-#        update("Ideas").where(id == idea_id).values(status=str(choice))
-#        database.db_session.update("Ideas").where(id == idea_id).values(status=str(status_choice.data))
-#        database.db_session.query("Ideas").filter_by(id=idea_id).update({"status": status_choice.data})
-#        database.db_session.execute(statement)
         database.db_session.commit()
         flash("Status aktualisiert!")
     else:
@@ -116,19 +110,16 @@ def add_comment():
         flash(comment_form.errors.items())
     return redirect(url_for("get_idea", idea_id=idea_id))
 
-@app.route("/upload_image", methods=["POST"])
+@app.route("/upload_image", methods=["POST", "GET"])
 def upload_image():
     """ Upload image."""
     if not session.get("logged_in"):
         abort(401)
-    #TODO: Check for filesize
-    #TODO: Add errors if file not in right format or to big.
     image_form = forms.AddImage()
     image = image_form.image.data
     idea_id = request.form["idea_id"]
     if image and database.allowed_file(image.filename):
         sec_filename = secure_filename(image.filename)
-        #TODO: repair secure filename
         db_image = models.Images(image_id=idea_id, image=sec_filename)
         database.db_session.add(db_image)
         image.save(os.path.join(app.config['UPLOAD_FOLDER'], sec_filename))
@@ -144,17 +135,18 @@ def delete_image(image_id):
     """Deletes image of idea."""
     if not session.get("logged_in"):
         abort(401)
-    #TODO: make jumping back to idea possible
     image_id = models.Images.query.filter_by(id=image_id).one()
     image = os.path.join(app.config['UPLOAD_FOLDER'], image_id.image)
     database.db_session.delete(image_id)
+    idea_id = image_id.image_id
     try:
         os.remove(image)
     except OSError:
         pass
     database.db_session.commit()
     flash(u"Bild gelöscht!")
-    return redirect(url_for("index"))
+    return redirect(url_for("get_idea", idea_id=idea_id))
+
 
 
 @app.route("/login", methods=["GET", "POST"])
