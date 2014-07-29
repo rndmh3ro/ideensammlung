@@ -71,17 +71,15 @@
     </div>
 </div>
 {% endif %}
-
 <div class="row">
 {% for image in images %}
     <div class="col-md-offset-1 col-md-4">
     <img class="img-responsive thumbnail" src="/uploads/{{image.image}}">
     {% if session.logged_in %}
-        <button class="btn btn-default btn-xs pull-right btn-warning" data-toggle="modal" data-target="#deleteModal">
-          Löschen
-        </button>
-        <!-- Modal -->
-        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <button class="btn btn-default btn-xs pull-right btn-warning" data-toggle="modal" data-target="#deleteModal{{image.id}}">
+        Löschen
+      </button>
+        <div class="modal fade" id="deleteModal{{image.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -99,9 +97,8 @@
           </div>
         </div>
     </div>
-
     {% endif %}
-{% endfor %}
+    {% endfor %}
 </div>
 {% endblock %}
 </div>
