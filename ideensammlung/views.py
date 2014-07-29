@@ -6,7 +6,7 @@ from ideensammlung import database
 from ideensammlung import forms
 from ideensammlung import models
 from werkzeug.utils import secure_filename
-from werkzeug.exceptions import RequestEntityTooLarge
+from sqlalchemy import update
 import os
 
 
@@ -25,13 +25,15 @@ def get_idea(idea_id):
     image_form = forms.AddImage()
     form = forms.AddIdea()
     comment_form = forms.AddComment()
+    choice_form = forms.StatusChoice()
     images = models.Images.query.filter_by(image_id=idea_id).all()
     ideas = models.Ideas.query.filter_by(id=idea_id).first()
     comments = models.Comments.query.filter_by(image_id=idea_id).all()
     if ideas is None:
         abort(404)
     return render_template("idea.html", SITENAME="Ideenfundgrube", ideas=ideas, idea_id=idea_id,
-                           images=images, image_form=image_form, form=form, comment_form=comment_form, comments=comments)
+                           images=images, image_form=image_form, form=form, comment_form=comment_form,
+                           comments=comments, choice_form=choice_form)
 
 
 @app.route("/add_idea", methods=["POST"])
@@ -72,6 +74,30 @@ def delete_idea(idea_id):
     flash(u"Idee gelöscht!")
     return redirect(url_for("index"))
 
+@app.route("/status_update", methods=["POST", "GET"])
+def status_update():
+    #TODO: Change flash() to flask-templare
+    """Add comment for existing idea."""
+    if not session.get("logged_in"):
+        abort(401)
+    idea_id = request.form["idea_id"]
+    status_choice = forms.StatusChoice()
+    if status_choice.validate_on_submit():
+        choice = status_choice.state.data
+        print(choice)
+        idea = models.Ideas.query.filter_by(id=idea_id).one()
+        idea.status = choice
+        print(idea.status)
+#        update("Ideas").where(id == idea_id).values(status=str(choice))
+#        database.db_session.update("Ideas").where(id == idea_id).values(status=str(status_choice.data))
+#        database.db_session.query("Ideas").filter_by(id=idea_id).update({"status": status_choice.data})
+#        database.db_session.execute(statement)
+        database.db_session.commit()
+        flash("Status aktualisiert!")
+    else:
+        flash(status_choice.errors.items())
+    return redirect(url_for("get_idea", idea_id=idea_id))
+
 @app.route("/add_comment", methods=["POST"])
 def add_comment():
     #TODO: Change flash() to flask-templare
@@ -95,6 +121,8 @@ def upload_image():
     """ Upload image."""
     if not session.get("logged_in"):
         abort(401)
+    #TODO: Check for filesize
+    #TODO: Add errors if file not in right format or to big.
     image_form = forms.AddImage()
     image = image_form.image.data
     idea_id = request.form["idea_id"]

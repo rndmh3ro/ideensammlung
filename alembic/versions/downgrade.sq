@@ -1,0 +1,20 @@
+BEGIN TRANSACTION;
+CREATE TEMPORARY TABLE ideas_backup (
+	id INTEGER NOT NULL, 
+	title VARCHAR(50) NOT NULL, 
+	description VARCHAR(5000) NOT NULL,
+	status VARCHAR(20) DEFAULT 'new' NOT NULL, 
+	PRIMARY KEY (id)
+);
+
+INSERT INTO ideas_backup SELECT id,title,description,status FROM ideas;
+DROP TABLE ideas;
+CREATE TABLE ideas (
+        id INTEGER NOT NULL,
+        title VARCHAR(50) NOT NULL,
+        description VARCHAR(5000) NOT NULL,
+        PRIMARY KEY (id)
+);
+INSERT INTO ideas SELECT id,title,description FROM ideas_backup;
+DROP TABLE ideas_backup;
+COMMIT;

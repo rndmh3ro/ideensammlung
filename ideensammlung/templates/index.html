@@ -1,13 +1,23 @@
+
 {% extends "base.html" %}
 {% block body %}
   <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-offset-1 col-md-4">
   <dl>
     {% for idea in ideas %}
       <dt>
-        <div>
+        <div class="clearfix">
           <h4>
-            <a href="{{url_for('get_idea', idea_id=idea.id)}}">#{{idea.id}} - {{idea.title}}</a>
+            <a href="{{url_for('get_idea', idea_id=idea.id)}}">
+              {% if idea.status == "N" %}
+                <img class="pull-left img-responsive" src="/static/images/new.png">
+              {% elif idea.status == "P" %}
+                <img class="pull-left img-responsive" src="/static/images/in_progress.png">
+              {% else %}
+                <img class="pull-left img-responsive" src="/static/images/done.png">
+              {% endif %}
+              {{idea.title}}
+            </a>
           </h4>
         </div>
       </dt>
@@ -19,7 +29,7 @@
   </dl>
   </div>
   {% if session.logged_in %}
-    <div class="col-md-5">
+    <div class="col-md-offset-1 col-md-4">
       <form role="form" action="{{url_for('add_idea')}}" method=post>
       <div class="form-group">
         {{ form.hidden_tag() }}

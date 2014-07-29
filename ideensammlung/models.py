@@ -7,7 +7,7 @@ class Ideas(Base):
     id = Column(Integer, primary_key=True, nullable=False, autoincrement=True)
     title = Column(String(50), nullable=False)
     description = Column(String(5000), nullable=False)
-
+    status = Column(String(20), nullable=False, default="new")
 
 class Images(Base):
     __tablename__ = "images"
