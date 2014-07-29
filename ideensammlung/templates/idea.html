@@ -1,0 +1,102 @@
+{% extends "base.html" %} {% block body %}
+<div class="container-fluid">
+<div class="row">
+  <h4>
+    <div class="col-md-offset-1 col-md-8">
+            <a href="{{url_for('get_idea', idea_id=idea_id)}}">
+              {% if ideas.status == "N" %}
+                <img class="pull-left img-responsive" src="/static/images/new.png">
+              {% elif ideas.status == "P" %}
+                <img class="pull-left img-responsive" src="/static/images/in_progress.png">
+              {% else %}
+                <img class="pull-left img-responsive" src="/static/images/done.png">
+              {% endif %} 
+              {{ ideas.title }}</a>
+    </div>
+    <div class="col-md-2">
+            {% if session.logged_in %}
+                <button class="btn btn-default btn-xs btn-warning" data-toggle="modal" data-target="#deleteIdeaModal">
+                    Idee löschen
+                </button>
+                    <div class="modal fade" id="deleteIdeaModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                            Wirklich löschen?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+                                <a class="btn btn-default btn-xs btn-danger" href="{{url_for('delete_idea',idea_id=ideas.id)}}" role="button">Idee löschen</a> 
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+            {% endif %}
+    </div>
+  </h4>
+</div>
+
+<div class="row top-buffer">
+    <div class="col-md-offset-1 col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Beschreibung
+            </div>
+            <div class="panel-body">
+                {{ideas.description|safe|urlize}}
+                <form method="post">
+                    <input type="hidden" name="idea_id" value="{{ ideas.id }}">
+                </form>
+            {% for comment in comments %}
+                <p>{{comment.comment|safe|urlize}}</p>
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if session.logged_in %}
+<div class="row">
+    <div class="col-md-offset-1 col-md-3">
+      {% include 'includes/status.html' %}
+    </div>
+    <div class="col-md-3">
+      {% include 'includes/comments.html' %}
+    </div>    
+    <div class="col-md-3">
+      {% include 'includes/upload.html' %}
+    </div>
+</div>
+{% endif %}
+<div class="row">
+            {% for image in images %}
+                <img class="img-responsive thumbnail" src="/uploads/{{image.image}}">
+                {% if session.logged_in %}
+                    <button class="btn btn-default btn-xs pull-right btn-warning" data-toggle="modal" data-target="#deleteModal{{image.id}}">
+                      Löschen
+                    </button>
+                    <!-- Modal -->
+                    <div class="modal fade" id="deleteModal{{image.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          </div>
+                          <div class="modal-body">
+                            Wirklich löschen?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+                            <a class="btn pull-right btn-danger" href="{{url_for('delete_image', image_id=image.id)}}" role="button">Bild löschen</a>
+                            <input type="hidden" name="id" value="{{image.id}}">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+{% endblock %}
+</div>
